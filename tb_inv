@@ -1,0 +1,34 @@
+Library IEEE;
+use work.all;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.STD_LOGIC_ARITH.all;
+
+entity invrt4 is
+
+Port ( in_1 : in STD_LOGIC_VECTOR (3 downto 0);
+i_out : out STD_LOGIC_VECTOR (3 downto 0));
+
+end invrt4;
+
+architecture behave of invrt4_tb is
+
+  signal in_1_in : std_logic_vector(3 downto 0);
+  signal i_out_out : std_logic;
+  
+begin  -- behave
+invrt4_0 : invrt4 port map (
+  in_1        => in_1_in;  
+  i_out       => i_out_out
+process
+
+   variable in_1_vector, b_vector : std_logic_vector(3 downto 0):=(others=>'0'); 
+begin  -- process
+  
+  for in_1_vector in 0 to 15 loop
+      in_1 <= conv_std_logic_vector(in_1_vector,4);
+      wait for 10 ns;
+      end loop;  -- a_vector
+end process;
+
+end behave;
