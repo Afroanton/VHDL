@@ -1,0 +1,48 @@
+Library IEEE;
+use work.all;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.STD_LOGIC_ARITH.all;
+
+entity mul4_tb is
+end mul4_tb;
+
+ 
+
+architecture behave of mul4_tb is
+ 
+  component mul4
+  Port ( 
+  in_1 : in STD_LOGIC_VECTOR (3 downto 0);
+  in_2 : in STD_LOGIC_VECTOR (3 downto 0);
+  i_out : out STD_LOGIC_VECTOR (7 downto 0));
+  end component; 
+  
+  signal in_1_in : std_logic_vector(3 downto 0);
+  signal in_2_in : std_logic_vector(3 downto 0);
+  signal i_out_out : std_logic_vector(7 downto 0);
+  
+begin  -- behave
+
+mul4_0 : mul4 port map (
+  in_1        => in_1_in, 
+   in_2        => in_2_in, 
+  i_out       => i_out_out
+  );
+process
+
+   variable in_1_vector, in_2_vector  : std_logic_vector(3 downto 0):=(others=>'0'); 
+begin  -- process
+  
+  for in_1_vector in 0 to 15 loop
+    for in_2_vector in 0 to 15 loop
+      in_1_in <= conv_std_logic_vector(in_1_vector,4);
+      in_2_in <= conv_std_logic_vector(in_2_vector,4);
+      
+      wait for 10 ns;
+     
+      end loop;  
+      end loop;  
+end process;
+
+end behave;
