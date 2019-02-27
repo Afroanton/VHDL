@@ -10,6 +10,7 @@ end invrt4_tb;
  
 
 architecture behave of invrt4_tb is
+ 
   component invrt4
   Port ( in_1 : in STD_LOGIC_VECTOR (3 downto 0);
   i_out : out STD_LOGIC_VECTOR (3 downto 0));
@@ -19,9 +20,11 @@ architecture behave of invrt4_tb is
   signal i_out_out : std_logic_vector(3 downto 0);
   
 begin  -- behave
+
 invrt4_0 : invrt4 port map (
-  in_1        => in_1_in;  
+  in_1        => in_1_in, 
   i_out       => i_out_out
+  );
 process
 
    variable in_1_vector, b_vector : std_logic_vector(3 downto 0):=(others=>'0'); 
