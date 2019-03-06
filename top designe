@@ -1,0 +1,84 @@
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity TopDesign is
+    Port (
+           ax        : in STD_LOGIC_VECTOR (3 downto 0);
+           opcode        : in STD_LOGIC_VECTOR (3 downto 0);
+           clk : in  STD_LOGIC;
+           btnc : in  STD_LOGIC;
+           topselDispA : out  STD_LOGIC;
+           topselDispB : out  STD_LOGIC;
+           topselDispC : out  STD_LOGIC;
+           topselDispD : out  STD_LOGIC;
+           topsegA : out  STD_LOGIC;
+           topsegB : out  STD_LOGIC;
+           topsegC : out  STD_LOGIC;
+           topsegD : out  STD_LOGIC;
+           topsegE : out  STD_LOGIC;
+           topsegF : out  STD_LOGIC;
+           topsegG : out  STD_LOGIC);
+end TopDesign;
+       
+architecture Behavioral of TopDesign is
+
+component segmentdriver
+    Port ( display_A : in  STD_LOGIC_VECTOR (3 downto 0);
+           display_B : in  STD_LOGIC_VECTOR (3 downto 0);
+           display_C : in  STD_LOGIC_VECTOR (3 downto 0);
+           display_D : in  STD_LOGIC_VECTOR (3 downto 0);
+           segA : out  STD_LOGIC;
+           segB : out  STD_LOGIC;
+           segC : out  STD_LOGIC;
+           segD : out  STD_LOGIC;
+           segE : out  STD_LOGIC;
+           segF : out  STD_LOGIC;
+           segG : out  STD_LOGIC;
+           select_Display_A : out  STD_LOGIC;
+           select_Display_B : out  STD_LOGIC;
+           select_Display_C : out  STD_LOGIC;
+           select_Display_D : out  STD_LOGIC;
+           clk : in  STD_LOGIC);
+end component;
+
+SIGNAL Ai : STD_LOGIC_VECTOR(3 DOWNTO 0);
+SIGNAL Bi : STD_LOGIC_VECTOR(3 DOWNTO 0);
+SIGNAL Ci : STD_LOGIC_VECTOR(3 downto 0);
+SIGNAL Di : STD_LOGIC_VECTOR(3 downto 0);
+
+begin
+    uut2: segmentDriver PORT MAP(
+        display_A => Ai,
+        display_B => Bi,
+        display_C => Ci,
+        display_D => Di,
+        segA => topsegA,
+        segB => topsegB,
+        segC => topsegC,
+        segD => topsegD,
+        segE => topsegE,
+        segF => topsegF,
+        segG => topsegG,
+        select_Display_A => topselDispA,
+        select_Display_B => topselDispB,
+        select_Display_C => topselDispC,
+        select_Display_D => topselDispD,
+        clk => clk
+		);
+
+     Ai <= ax;
+     Bi <= opcode;            
+     process (clk)
+     begin
+         if (clk'event and clk='1') then          
+            if (btnc = '1') then
+                 Ci <= ax;         
+                 Di <= opcode;
+             end if;
+         end if;
+     end process;
+         
+end Behavioral;
